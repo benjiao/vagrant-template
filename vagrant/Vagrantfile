@@ -18,6 +18,9 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     vb.name = APP_NAME
     vb.customize ["modifyvm", :id, "--memory", "512"]
   end
-
+  
+  # Workaround for "stdin: is not a tty" issue
+  config.ssh.shell = "bash -c 'BASH_ENV=/etc/profile exec bash'"
+  
   config.vm.provision :shell, path: "bootstrap.sh"
 end
